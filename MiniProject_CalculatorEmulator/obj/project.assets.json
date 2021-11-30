@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Revature\\KylerD\\MiniProject_CalculatorEmulator\\MiniProject_CalculatorEmulator.csproj",
+      "projectUniqueName": "D:\\Revature\\KylerD_Calculator\\MiniProject_CalculatorEmulator\\MiniProject_CalculatorEmulator.csproj",
       "projectName": "MiniProject_CalculatorEmulator",
-      "projectPath": "D:\\Revature\\KylerD\\MiniProject_CalculatorEmulator\\MiniProject_CalculatorEmulator.csproj",
+      "projectPath": "D:\\Revature\\KylerD_Calculator\\MiniProject_CalculatorEmulator\\MiniProject_CalculatorEmulator.csproj",
       "packagesPath": "C:\\Users\\Kyler Dennis\\.nuget\\packages\\",
-      "outputPath": "D:\\Revature\\KylerD\\MiniProject_CalculatorEmulator\\obj\\",
+      "outputPath": "D:\\Revature\\KylerD_Calculator\\MiniProject_CalculatorEmulator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kyler Dennis\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -3,9 +3,9 @@ using System;
 
 public class Calculator
 {
-    static bool calcHistory = false;
+    static bool calcHistory = false; //Check if calcHistory is toggled throughout all methods
 
-    public static void Main(string[] args)
+    public static void Main(string[] args) //First method run
     {
         MainMenu();
     }
@@ -35,7 +35,7 @@ public class Calculator
             {
                 ToggleCalculationHistory();
             }
-            else if (calcTypeTryParse == true && calcTypeParsed == 4)
+            else if (calcTypeTryParse == true && calcTypeParsed == 4) //Delete our calculation history
             {
                 DeleteCalculationHistory();
             }
@@ -49,7 +49,7 @@ public class Calculator
         }
     }
 
-    static void ToggleCalculationHistory()
+    static void ToggleCalculationHistory() //Toggles our calculation history bool
     {
         if (calcHistory == false)
         {
@@ -64,7 +64,7 @@ public class Calculator
         MainMenu();
     }
 
-    static async Task DeleteCalculationHistory()
+    static async Task DeleteCalculationHistory() //Clears our calculation history
     {
         Console.WriteLine("Are you sure you want to delete your calculation history? (Y / N)");
         string deleteCheck = Console.ReadLine();
@@ -85,15 +85,15 @@ public class Calculator
     static async Task BasicEmulator()
     {
         Console.WriteLine("Welcome to the basic calculator emulator! \n" + "Type 'Menu' to return to the main menu. \n" + "Type 'Exit' to close the application. \n" + "Otherwise, please enter your first number:");
-        float firstNum = ConvertMyNumber();
+        float firstNum = ConvertMyNumber(); //Test and convert first number
 
-        Console.WriteLine("Please enter an operator:"); //What is the operator?
+        Console.WriteLine("Please enter an operator:");
         int operatorTest = 0;
         bool activeOperator = true;
         while (activeOperator == true)
         {
             string operatorEntry = Console.ReadLine();
-            operatorTest = TestMyOperator(operatorEntry);
+            operatorTest = TestMyOperator(operatorEntry); //Test and convert operator entered
             if (operatorTest >= 1 && operatorTest <= 4)
                 break;
             else if (operatorTest == 5)
@@ -105,7 +105,7 @@ public class Calculator
         }
 
         Console.WriteLine("Please enter your second number:");
-        float secondNum = ConvertMyNumber();
+        float secondNum = ConvertMyNumber(); //Test and convert second number
 
         float finalResults = 0.0f;
         if (operatorTest == 1) //Perform operators based on results
@@ -152,7 +152,7 @@ public class Calculator
         BasicEmulator();
     }
 
-    static float ConvertMyNumber()
+    static float ConvertMyNumber() //Converts entry to a number, is valid
     {
         bool numTest;
         bool activeNum = true;
@@ -160,15 +160,15 @@ public class Calculator
         while (activeNum == true)
         {
             string myEntry = Console.ReadLine();
-            numTest = TestMyNumber(myEntry); //Is the first entry valid?
-            if (numTest == true) //Valid entry
+            numTest = TestMyNumber(myEntry); //Is the first entry a valid number?
+            if (numTest == true) //If valid entry
             {
                 myNum = float.Parse(myEntry);
                 //Console.WriteLine(firstNum); //For testing purposes
                 activeNum = false;
                 return myNum;
             }
-            else //Invalid entry
+            else //If entry is an invalid number:
             {
                 int myNumExtra = ExtraNumberTest(myEntry); //Is the entry a spelled out number?
                 if (myNumExtra >= 0 && myNumExtra <= 9)
@@ -185,13 +185,13 @@ public class Calculator
         return myNum;
     }
 
-    static bool TestMyNumber(string myEntry)
+    static bool TestMyNumber(string myEntry) //Test numbers to confirm they're valid
     {
         //Test the entry for valid int
         float myNum;
         bool myEntryTryParse = float.TryParse(myEntry, out myNum);
 
-        if (myEntryTryParse == true) //If valid
+        if (myEntryTryParse == true) //If valid number
         {
             return true;
         }
@@ -206,13 +206,13 @@ public class Calculator
             Environment.Exit(0);
             return false;
         }
-        else //Invalid Input
+        else //If invalid Input
         {
             return false;
         }
     }
 
-    static int ExtraNumberTest(string myEntry)
+    static int ExtraNumberTest(string myEntry) //Is the entry a spelled out number?
     {
         if (myEntry == "zero")
             return 0;
@@ -238,7 +238,7 @@ public class Calculator
             return 10;
     }
 
-    static int TestMyOperator(string myOperator)
+    static int TestMyOperator(string myOperator) //Is the operator entered valid?
     {
         if (myOperator == "+" || myOperator == "plus")
             return 1;
@@ -262,9 +262,9 @@ public class Calculator
         while (true)
         {
             string myProblem = Console.ReadLine();
-            if (myProblem == "Menu")
+            if (myProblem == "Menu") //If entry = 'Menu'
                 MainMenu();
-            else if (myProblem == "Exit")
+            else if (myProblem == "Exit") //If entry = 'Exit'
             {
                 Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
@@ -273,21 +273,21 @@ public class Calculator
             float myFirstNumber = 0;
             float myNumber;
             float finalResults = 0.0f;
-            string[] splitProblem = myProblem.Split(" ");
-            int validNumOfEntries = splitProblem.Length % 2;
+            string[] splitProblem = myProblem.Split(" "); //Split problem by whitespace
+            int validNumOfEntries = splitProblem.Length % 2; //Confirm we have enough entries (odd number that is >= 3)
             //Console.WriteLine(splitProblem.Length); //For testing purposes
             if (validNumOfEntries == 0 || splitProblem.Length == 1)
             {
                 Console.WriteLine("Error: Invalid number of entries");
             }
-            else
+            else //If number of entries is valid, try to solve problem
             {
-                for (int i = 0; i < splitProblem.Length; i++)
+                for (int i = 0; i < splitProblem.Length; i++) //Loop through our split problem
                 {
-                    if (counter == 0) //Validate the first entry
+                    if (counter == 0) //Validate the very first numbered entry
                     {
-                        bool tryMyFirstNumber = AdvancedNumberConversion(splitProblem[i]);
-                        if (tryMyFirstNumber == true)
+                        bool tryMyFirstNumber = AdvancedNumberTest(splitProblem[i]);
+                        if (tryMyFirstNumber == true) //Can the first entry be converted to an int?
                         {
                             myFirstNumber = float.Parse(splitProblem[i]);
                             //Console.WriteLine("1: " + myFirstNumber); //For testing purposes
@@ -310,10 +310,11 @@ public class Calculator
                         }
                         counter++;
                     }
-                    else if (counter % 2 == 0 && counter != 0) //Get our next number to apply to previous
+
+                    else if (counter % 2 == 0 && counter != 0) //Perform last operator on current number
                     {
-                        bool tryMyNumber = AdvancedNumberConversion(splitProblem[i]);
-                        if (tryMyNumber == true)
+                        bool tryMyNumber = AdvancedNumberTest(splitProblem[i]);
+                        if (tryMyNumber == true) //Entry is a valid int
                         {
                             myNumber = float.Parse(splitProblem[i]);
                             //Console.WriteLine("3: " + myNumber); //For testing purposes
@@ -324,7 +325,7 @@ public class Calculator
                             if (myNumExtra >= 0 && myNumExtra <= 9)
                             {
                                 string myNumExtraString = Convert.ToString(myNumExtra);
-                                splitProblem[i] = myNumExtraString;
+                                splitProblem[i] = myNumExtraString; //Convert spelled out entry to an int
                                 myNumber = myNumExtra;
                                 //Console.WriteLine("4: " + myNumber); //For testing purposes
                             }
@@ -336,7 +337,7 @@ public class Calculator
                         }
                         //Console.WriteLine("6: " + finalResults); //For testing purposes
 
-                        int testMyOperator = AdvancedTestMyOperator(splitProblem[i - 1]);
+                        int testMyOperator = TestMyOperator(splitProblem[i - 1]); //Perform operator entered. Change spelled out operator to valid operator (Ex. plus ---> +)
                         if (testMyOperator == 1)
                         {
                             finalResults = finalResults + myNumber;
@@ -357,7 +358,7 @@ public class Calculator
                             finalResults = finalResults / myNumber;
                             splitProblem[i - 1] = "/";
                         }
-                        else if (testMyOperator == 5)
+                        else
                         {
                             Console.WriteLine("Error: Your entry '" + splitProblem[i - 1] + "' is not a valid operator.");
                             break;
@@ -366,35 +367,37 @@ public class Calculator
                         i++;
                     }
 
-                    else if (counter == 1) //If we loop through our first sign, do nothing
+                    else if (counter == 1) //If we are looping through our first sign, do nothing but validate entry
                     {
-                        int testMyOperator = AdvancedTestMyOperator(splitProblem[i]);
-                        if (testMyOperator >= 1 || testMyOperator <= 4)
+                        int testMyOperator = TestMyOperator(splitProblem[i]);
+                        if (testMyOperator >= 1 || testMyOperator <= 4) //If valid
                         {
                             finalResults = myFirstNumber;
                             //Console.WriteLine("5: " + finalResults); //For testing purposes
                         }
-                        else if (testMyOperator == 5)
+                        else //If invalid
                         {
                             Console.WriteLine("Error: Your entry '" + splitProblem[i] + "' is not a valid operator.");
                             break;
                         }
                         counter++;
                     }
-                    else
+
+                    else //If all cases fail to validate any single entry
                     {
                         Console.WriteLine("Error: Please try again.");
                     }
                 }
+
                 if (counter - 1 == splitProblem.Length) //Only print if loop was fully finished
                 {
                     myProblem = "";
-                    for (int j = 0; j < splitProblem.Length; j++)
+                    for (int j = 0; j < splitProblem.Length; j++) //Create new string with updated entries
                     {
                         myProblem = myProblem + splitProblem[j] + " ";
                     }
-                    Console.WriteLine(myProblem + "= " + finalResults);
-                    if (calcHistory == true)
+                    Console.WriteLine(myProblem + "= " + finalResults); //Print final string + results
+                    if (calcHistory == true) //If calcHistory = true, write to a file
                     {
                         using StreamWriter file = new("CalculatorEmulatorHistory.txt", append: true);
                         await file.WriteLineAsync(myProblem + "= " + finalResults);
@@ -404,19 +407,7 @@ public class Calculator
         }
     }
 
-    static bool AdvancedNumberConversion(string myEntry)
-    {
-        bool numTest;
-        numTest = AdvancedNumberTest(myEntry); //Is the first entry valid?
-        if (numTest == true) //Valid entry
-        {
-            return true;
-        }
-        else //Invalid entry
-            return false;
-    }
-
-    static bool AdvancedNumberTest(string myEntry)
+    static bool AdvancedNumberTest(string myEntry) //Can our string be converted to an int?
     {
         //Test the entry for valid int
         float myNum;
@@ -430,19 +421,5 @@ public class Calculator
         {
             return false;
         }
-    }
-
-    static int AdvancedTestMyOperator(string myOperator)
-    {
-        if (myOperator == "+" || myOperator == "plus")
-            return 1;
-        else if (myOperator == "-" || myOperator == "minus")
-            return 2;
-        else if (myOperator == "*" || myOperator == "times")
-            return 3;
-        else if (myOperator == "/" || myOperator == "divided-by")
-            return 4;
-        else
-            return 5;
     }
 }
